@@ -1,0 +1,152 @@
+[gd_scene load_steps=12 format=3 uid="uid://jnfcs1g33tyo"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_i67um"]
+[ext_resource type="Texture2D" uid="uid://dntn6axtog8qa" path="res://Textures/Player/dot_cha016 - Grey Cat.png" id="2_kfetn"]
+[ext_resource type="PackedScene" uid="uid://eiin3b0am3pc" path="res://Utility/hurt_box.tscn" id="3_jmbd1"]
+
+[sub_resource type="Animation" id="Animation_06w73"]
+resource_name = "walk_down"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_noes3"]
+resource_name = "walk_left"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_7yh8v"]
+resource_name = "walk_right"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_wusbc"]
+resource_name = "walk_up"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u8fhc"]
+_data = {
+"walk_down": SubResource("Animation_06w73"),
+"walk_left": SubResource("Animation_noes3"),
+"walk_right": SubResource("Animation_7yh8v"),
+"walk_up": SubResource("Animation_wusbc")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_siptc"]
+radius = 3.0
+height = 18.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_448m8"]
+size = Vector2(10.5, 18)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fstb8"]
+radius = 370.049
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+motion_mode = 1
+script = ExtResource("1_i67um")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -11)
+scale = Vector2(0.708333, 0.708333)
+texture = ExtResource("2_kfetn")
+hframes = 3
+vframes = 4
+frame = 3
+
+[node name="PlayerAnimation" type="AnimationPlayer" parent="Sprite2D"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_u8fhc")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_siptc")
+
+[node name="walkTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+one_shot = true
+
+[node name="HurtBox" parent="." instance=ExtResource("3_jmbd1")]
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+visible = false
+position = Vector2(1.75, 2)
+shape = SubResource("RectangleShape2D_448m8")
+
+[node name="Attack" type="Node2D" parent="."]
+
+[node name="IceSpearReloadTimer" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 1.5
+
+[node name="IceSpearTriggerTimer" type="Timer" parent="Attack/IceSpearReloadTimer"]
+unique_name_in_owner = true
+wait_time = 0.075
+
+[node name="EnemyDetectionArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
+shape = SubResource("CircleShape2D_fstb8")
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+[connection signal="timeout" from="Attack/IceSpearReloadTimer" to="." method="_on_ice_spear_reload_timer_timeout"]
+[connection signal="timeout" from="Attack/IceSpearReloadTimer/IceSpearTriggerTimer" to="." method="_on_ice_spear_trigger_timer_timeout"]
+[connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
+[connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
+
+[editable path="HurtBox"]

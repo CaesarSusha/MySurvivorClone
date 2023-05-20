@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://caodkpibb2638"]
+
+[ext_resource type="Texture2D" uid="uid://dompvg2txlrmv" path="res://Textures/Background/256_Dirt Cracked 02.png" id="1_ev407"]
+[ext_resource type="PackedScene" uid="uid://jnfcs1g33tyo" path="res://Player/player.tscn" id="2_1dcmh"]
+[ext_resource type="Texture2D" uid="uid://bhu13wo2cepx3" path="res://Textures/Background/256_Dirt Rocks 01.png" id="2_8m2yt"]
+[ext_resource type="PackedScene" uid="uid://bhml20c04kqpp" path="res://Utility/enemy_spawner.tscn" id="3_7ft0r"]
+[ext_resource type="Texture2D" uid="uid://dc4cmwoptyk7o" path="res://Textures/Background/256_Tiles Circle 08.png" id="3_7yn5m"]
+[ext_resource type="Texture2D" uid="uid://ds4s5meorgusc" path="res://Textures/Background/256_Tiles Circle 09.png" id="4_ngpjs"]
+[ext_resource type="Texture2D" uid="uid://eskkdg5kcq0t" path="res://Textures/Background/256_Tiles Pattern 07 Mix.png" id="5_e1dvk"]
+
+[node name="World" type="Node2D"]
+
+[node name="dirtCracked" type="Sprite2D" parent="."]
+texture_filter = 2
+texture_repeat = 2
+position = Vector2(150.75, 113.25)
+scale = Vector2(0.5, 0.446)
+texture = ExtResource("1_ev407")
+region_enabled = true
+region_rect = Rect2(0, 0, 4000, 4000)
+
+[node name="dirtRocks" type="Sprite2D" parent="."]
+texture_filter = 2
+texture_repeat = 2
+position = Vector2(378, -92)
+scale = Vector2(0.5, 0.446)
+texture = ExtResource("2_8m2yt")
+region_enabled = true
+region_rect = Rect2(0, 0, 4000, 4000)
+
+[node name="tilesCircleGrey" type="Sprite2D" parent="."]
+texture_filter = 2
+texture_repeat = 2
+position = Vector2(150.75, 113.25)
+scale = Vector2(0.5, 0.446)
+texture = ExtResource("3_7yn5m")
+region_enabled = true
+region_rect = Rect2(0, 0, 4000, 4000)
+
+[node name="tilesCircleRed" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 2
+texture_repeat = 2
+position = Vector2(150.75, 113.25)
+scale = Vector2(0.5, 0.446)
+texture = ExtResource("4_ngpjs")
+region_enabled = true
+region_rect = Rect2(0, 0, 4000, 4000)
+
+[node name="tilesPattern" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 2
+texture_repeat = 2
+position = Vector2(150.75, 113.25)
+scale = Vector2(0.5, 0.446)
+texture = ExtResource("5_e1dvk")
+region_enabled = true
+region_rect = Rect2(0, 0, 4000, 4000)
+
+[node name="Player" parent="." instance=ExtResource("2_1dcmh")]
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3_7ft0r")]
