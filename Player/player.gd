@@ -77,6 +77,7 @@ func movement(): #assuming 'd' is being pressed
 func _on_hurt_box_hurt(damage):
 	hp -= damage
 	print(hp)
+	print (get_viewport_rect())
 
 # loading your ammunition
 func _on_ice_spear_reload_timer_timeout():

@@ -11,6 +11,7 @@
 [node name="World" type="Node2D"]
 
 [node name="dirtCracked" type="Sprite2D" parent="."]
+visible = false
 texture_filter = 2
 texture_repeat = 2
 position = Vector2(150.75, 113.25)
@@ -20,13 +21,23 @@ region_enabled = true
 region_rect = Rect2(0, 0, 4000, 4000)
 
 [node name="dirtRocks" type="Sprite2D" parent="."]
+visible = false
 texture_filter = 2
 texture_repeat = 2
-position = Vector2(378, -92)
+position = Vector2(146, 98)
 scale = Vector2(0.5, 0.446)
 texture = ExtResource("2_8m2yt")
 region_enabled = true
 region_rect = Rect2(0, 0, 4000, 4000)
+
+[node name="tilesCircleRed" type="Sprite2D" parent="."]
+texture_filter = 2
+texture_repeat = 2
+position = Vector2(138, 102)
+scale = Vector2(0.5, 0.446)
+texture = ExtResource("4_ngpjs")
+region_enabled = true
+region_rect = Rect2(0, 0, 6000, 6000)
 
 [node name="tilesCircleGrey" type="Sprite2D" parent="."]
 texture_filter = 2
@@ -34,16 +45,6 @@ texture_repeat = 2
 position = Vector2(150.75, 113.25)
 scale = Vector2(0.5, 0.446)
 texture = ExtResource("3_7yn5m")
-region_enabled = true
-region_rect = Rect2(0, 0, 4000, 4000)
-
-[node name="tilesCircleRed" type="Sprite2D" parent="."]
-visible = false
-texture_filter = 2
-texture_repeat = 2
-position = Vector2(150.75, 113.25)
-scale = Vector2(0.5, 0.446)
-texture = ExtResource("4_ngpjs")
 region_enabled = true
 region_rect = Rect2(0, 0, 4000, 4000)
 

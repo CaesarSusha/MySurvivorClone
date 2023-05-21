@@ -1,24 +1,54 @@
-[gd_scene load_steps=4 format=3 uid="uid://cc1u6fhphvkhc"]
+[gd_scene load_steps=7 format=3 uid="uid://cc1u6fhphvkhc"]
 
 [ext_resource type="Texture2D" uid="uid://dr88644ugvpfl" path="res://Textures/Items/Weapons/GlitterNr1Sprite.png" id="1_c05h2"]
+[ext_resource type="Texture2D" uid="uid://jewjo8qy6my7" path="res://Textures/Items/Weapons/GlitterNr2.png" id="2_pilbi"]
+[ext_resource type="Texture2D" uid="uid://cq1ne0j0xapph" path="res://Textures/Items/Weapons/GlitterNr3.png" id="3_4gnxp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b8c80"]
+size = Vector2(40, 400)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6dp7u"]
 particles_animation = true
-particles_anim_h_frames = 1
+particles_anim_h_frames = 11
 particles_anim_v_frames = 1
 particles_anim_loop = true
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_stu7l"]
+lifetime_randomness = 0.1
+emission_shape = 3
+emission_box_extents = Vector3(20, 200, 1)
 particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
 gravity = Vector3(0, 0, 0)
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
+hue_variation_min = 0.7
+hue_variation_max = 1.0
+anim_speed_min = 0.5
+anim_speed_max = 1.0
 
 [node name="glitter" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_b8c80")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="Glitter1" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_6dp7u")
+amount = 30
 process_material = SubResource("ParticleProcessMaterial_stu7l")
 texture = ExtResource("1_c05h2")
+
+[node name="Glitter2" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_6dp7u")
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_stu7l")
+texture = ExtResource("2_pilbi")
+
+[node name="Glitter3" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_6dp7u")
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_stu7l")
+texture = ExtResource("3_4gnxp")
