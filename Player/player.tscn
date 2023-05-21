@@ -135,6 +135,20 @@ wait_time = 1.5
 unique_name_in_owner = true
 wait_time = 0.075
 
+[node name="GlitterActiveTimer" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 3.0
+
+[node name="GlitterDelayTimer" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 10.0
+
+[node name="GlitterPositioning" type="Timer" parent="Attack"]
+unique_name_in_owner = true
+wait_time = 0.1
+one_shot = true
+autostart = true
+
 [node name="EnemyDetectionArea" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 4
@@ -146,6 +160,9 @@ shape = SubResource("CircleShape2D_fstb8")
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 [connection signal="timeout" from="Attack/IceSpearReloadTimer" to="." method="_on_ice_spear_reload_timer_timeout"]
 [connection signal="timeout" from="Attack/IceSpearReloadTimer/IceSpearTriggerTimer" to="." method="_on_ice_spear_trigger_timer_timeout"]
+[connection signal="timeout" from="Attack/GlitterActiveTimer" to="." method="_on_glitter_active_timer_timeout"]
+[connection signal="timeout" from="Attack/GlitterDelayTimer" to="." method="_on_glitter_delay_timer_timeout"]
+[connection signal="timeout" from="Attack/GlitterPositioning" to="." method="_on_glitter_positioning_timeout"]
 [connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
 [connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
 

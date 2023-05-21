@@ -5,16 +5,27 @@ var hp = 80
 
 # Attacks
 var iceSpear = preload("res://Player/Attack/ice_spear.tscn")
+var glitter = preload("res://Player/Attack/glitter.tscn")
 
 # AttackNodes
 @onready var iceSpearReloadTimer = get_node("%IceSpearReloadTimer")
 @onready var iceSpearTriggerTimer = get_node("%IceSpearTriggerTimer")
+
+@onready var glitterActiveTimer = get_node("%GlitterActiveTimer")
+@onready var glitterDelayTimer = get_node("%GlitterDelayTimer")
+@onready var glitterPositioningTimer = get_node("%GlitterPositioningTimer")
+
 
 # IceSpear
 var icespear_ammo = 0
 var icespear_base_ammo = 1
 var icespear_attackspeed = 1.5
 var icespear_level = 1
+
+#Glitter
+var glitter_level = 1
+var glitter_attackspeed = 2
+
 
 # Enemy Related
 # track all the enemies that are close to us
@@ -31,6 +42,11 @@ func attack():
 		iceSpearReloadTimer.wait_time = icespear_attackspeed
 		if iceSpearReloadTimer.is_stopped():
 			iceSpearReloadTimer.start()
+	
+	if glitter_level > 0:
+		glitterDelayTimer.wait_time = glitter_attackspeed
+		if glitterDelayTimer.is_stopped():
+			glitterDelayTimer.start()
 
 
 
@@ -77,7 +93,6 @@ func movement(): #assuming 'd' is being pressed
 func _on_hurt_box_hurt(damage):
 	hp -= damage
 	print(hp)
-	print (get_viewport_rect())
 
 # loading your ammunition
 func _on_ice_spear_reload_timer_timeout():
@@ -120,9 +135,25 @@ func _on_enemy_detection_area_body_entered(body):
 func _on_enemy_detection_area_body_exited(body):
 	if enemy_close.has(body):
 		enemy_close.erase(body)
+		
+
+
+func _on_glitter_delay_timer_timeout():
+	var glitter_attack = glitter.instantiate()
+	glitter_attack.position = position
+	glitter_attack.level = glitter_level
+	# spawn the glitter
+	add_child(glitter_attack)
+	glitterActiveTimer.start()
+	#glitter_attack.GlitterTTL.start()
 	
+func _on_glitter_active_timer_timeout():
+	glitterDelayTimer.start()
 	
-
-
-
-
+##
+#func _on_glitter_positioning_timeout():
+#	if not glitterActiveTimer.is_stopped():
+#		glitter.position = position
+#		glitterPositioningTimer.start()
+		
+		

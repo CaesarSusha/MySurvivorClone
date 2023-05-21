@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cc1u6fhphvkhc"]
+[gd_scene load_steps=8 format=3 uid="uid://cc1u6fhphvkhc"]
 
 [ext_resource type="Texture2D" uid="uid://dr88644ugvpfl" path="res://Textures/Items/Weapons/GlitterNr1Sprite.png" id="1_c05h2"]
+[ext_resource type="Script" path="res://Player/Attack/glitter.gd" id="1_ekcur"]
 [ext_resource type="Texture2D" uid="uid://jewjo8qy6my7" path="res://Textures/Items/Weapons/GlitterNr2.png" id="2_pilbi"]
 [ext_resource type="Texture2D" uid="uid://cq1ne0j0xapph" path="res://Textures/Items/Weapons/GlitterNr3.png" id="3_4gnxp"]
 
@@ -30,9 +31,10 @@ anim_speed_max = 1.0
 
 [node name="glitter" type="Area2D"]
 collision_layer = 4
-collision_mask = 0
+collision_mask = 4
+script = ExtResource("1_ekcur")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="GlitterArea" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_b8c80")
 
 [node name="Glitter1" type="GPUParticles2D" parent="."]
@@ -52,3 +54,12 @@ material = SubResource("CanvasItemMaterial_6dp7u")
 amount = 30
 process_material = SubResource("ParticleProcessMaterial_stu7l")
 texture = ExtResource("3_4gnxp")
+
+[node name="GlitterTTL" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="GlitterTTL" to="." method="_on_glitter_ttl_timeout"]
