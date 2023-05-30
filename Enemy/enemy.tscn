@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bx27x10ywwfx5"]
 
-[ext_resource type="Texture2D" uid="uid://dpvnpingdg4v" path="res://Textures/Enemy/kolbold_weak.png" id="1_aord4"]
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_d5m55"]
+[ext_resource type="Texture2D" uid="uid://bxejkbxem0ysy" path="res://Textures/Player/T-Boney.png" id="2_chimk"]
 [ext_resource type="PackedScene" uid="uid://eiin3b0am3pc" path="res://Utility/hurt_box.tscn" id="3_fjs3o"]
 [ext_resource type="PackedScene" uid="uid://cxcpefdtrwhjp" path="res://Utility/hit_box.tscn" id="4_cjs3a"]
 
@@ -60,7 +60,7 @@ motion_mode = 1
 script = ExtResource("1_d5m55")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_aord4")
+texture = ExtResource("2_chimk")
 hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
