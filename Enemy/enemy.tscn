@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bx27x10ywwfx5"]
 
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_d5m55"]
-[ext_resource type="Texture2D" uid="uid://bxejkbxem0ysy" path="res://Textures/Player/T-Boney.png" id="2_chimk"]
+[ext_resource type="Texture2D" uid="uid://bdox1pn7jqh0e" path="res://Textures/Enemy/lemon.png" id="2_cpksf"]
 [ext_resource type="PackedScene" uid="uid://eiin3b0am3pc" path="res://Utility/hurt_box.tscn" id="3_fjs3o"]
 [ext_resource type="PackedScene" uid="uid://cxcpefdtrwhjp" path="res://Utility/hit_box.tscn" id="4_cjs3a"]
 
@@ -60,7 +60,8 @@ motion_mode = 1
 script = ExtResource("1_d5m55")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_chimk")
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_cpksf")
 hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

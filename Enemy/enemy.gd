@@ -13,7 +13,7 @@ extends CharacterBody2D
 @onready var sprite = $Sprite2D
 @onready var anim = $AnimationPlayer
 
- #runs once at the very beginning
+ #runs once at the very beginning"res://Textures/Enemy/KittyBetterFeet.png"
 func _ready():
 	anim.play("walk")
 
@@ -25,9 +25,9 @@ func _physics_process(_delta):
 	velocity = direction*movement_speed
 	move_and_slide()
 
-	if direction.x < 0.1:
+	if direction.x > 0.1:
 			sprite.flip_h = true
-	elif direction.x > -0.1:
+	elif direction.x < -0.1:
 			sprite.flip_h = false
 	
 

@@ -64,25 +64,28 @@ func movement(): #assuming 'd' is being pressed
 	var mov = Vector2(x_mov, y_mov)  #mov = Vector2(1x,0y)
 		
 	if mov.x > 0:
-		$Sprite2D/PlayerAnimation.play("walk_right")
+		sprite.flip_h = true
 	elif mov.x < 0:
-		$Sprite2D/PlayerAnimation.play("walk_left")
-	elif mov.y < 0:
-		$Sprite2D/PlayerAnimation.play("walk_up")
-	elif mov.y > 0:
-		$Sprite2D/PlayerAnimation.play("walk_down")
+		sprite.flip_h = false
 		
 
 		
-#	if mov != Vector2.ZERO:
-#		if walkTimer.is_stopped():
-#			if sprite.frame >= :
-#				sprite.frame = 0
-#			elif sprite.frame >= sprite.vframes - 1:
-#				sprite.frame = 1
-#			else:
-#				sprite.frame += 1
-#			walkTimer.start()
+#	if mov.x > 0:
+#		$Sprite2D/PlayerAnimation.play("walk_right")
+#	elif mov.x < 0:
+#		$Sprite2D/PlayerAnimation.play("walk_left")
+#	elif mov.y < 0:
+#		$Sprite2D/PlayerAnimation.play("walk_up")
+#	elif mov.y > 0:
+#		$Sprite2D/PlayerAnimation.play("walk_down")
+		
+	if mov != Vector2.ZERO:
+		if walkTimer.is_stopped():
+			if sprite.frame >= sprite.hframes - 1:
+				sprite.frame = 0
+			else:
+				sprite.frame += 1
+			walkTimer.start()
 	
 	velocity = mov.normalized()*movement_speed  #velocity = Vector2(1x,0y)*40.0 = Vector2(40x,0y)
 	move_and_slide()
