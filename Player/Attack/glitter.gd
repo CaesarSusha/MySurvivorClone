@@ -7,12 +7,12 @@ var attack_size
 @onready var player = get_tree().get_first_node_in_group("player")
 
 
-func _on_body_entered(body):
-	pass # Replace with function body.
-
-
-func _on_body_exited(body):
-	pass # Replace with function body.
+#func _on_body_entered(body):
+#	pass # Replace with function body.
+#
+#
+#func _on_body_exited(body):
+#	pass # Replace with function body.
 
 
 func _ready():

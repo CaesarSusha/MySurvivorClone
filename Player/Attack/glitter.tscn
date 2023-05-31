@@ -29,31 +29,38 @@ hue_variation_max = 1.0
 anim_speed_min = 0.5
 anim_speed_max = 1.0
 
-[node name="glitter" type="Area2D"]
+[node name="glitter" type="Area2D" groups=["attack"]]
+show_behind_parent = true
 collision_layer = 4
-collision_mask = 4
+collision_mask = 0
 script = ExtResource("1_ekcur")
 
 [node name="GlitterArea" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_b8c80")
 
 [node name="Glitter1" type="GPUParticles2D" parent="."]
+visibility_layer = 2
 material = SubResource("CanvasItemMaterial_6dp7u")
 amount = 30
 process_material = SubResource("ParticleProcessMaterial_stu7l")
 texture = ExtResource("1_c05h2")
+local_coords = true
 
 [node name="Glitter2" type="GPUParticles2D" parent="."]
+visibility_layer = 2
 material = SubResource("CanvasItemMaterial_6dp7u")
 amount = 30
 process_material = SubResource("ParticleProcessMaterial_stu7l")
 texture = ExtResource("2_pilbi")
+local_coords = true
 
 [node name="Glitter3" type="GPUParticles2D" parent="."]
+visibility_layer = 2
 material = SubResource("CanvasItemMaterial_6dp7u")
 amount = 30
 process_material = SubResource("ParticleProcessMaterial_stu7l")
 texture = ExtResource("3_4gnxp")
+local_coords = true
 
 [node name="GlitterTTL" type="Timer" parent="."]
 wait_time = 2.0

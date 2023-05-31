@@ -13,7 +13,7 @@ var glitter = preload("res://Player/Attack/glitter.tscn")
 
 @onready var glitterActiveTimer = get_node("%GlitterActiveTimer")
 @onready var glitterDelayTimer = get_node("%GlitterDelayTimer")
-@onready var glitterPositioningTimer = get_node("%GlitterPositioningTimer")
+#@onready var glitterPositioningTimer = get_node("%GlitterPositioningTimer")
 
 
 # IceSpear
@@ -25,6 +25,7 @@ var icespear_level = 1
 #Glitter
 var glitter_level = 1
 var glitter_attackspeed = 2
+var glitter_attack
 
 
 # Enemy Related
@@ -51,11 +52,10 @@ func attack():
 
 
 
-
-
-
 # delta: 1 second divided by the frame rate
 func _physics_process(_delta): #runs every 1/60 seconds 
+		if not glitterActiveTimer.is_stopped():
+			glitter_attack.position = position
 		movement()
 		
 func movement(): #assuming 'd' is being pressed
@@ -142,7 +142,7 @@ func _on_enemy_detection_area_body_exited(body):
 
 
 func _on_glitter_delay_timer_timeout():
-	var glitter_attack = glitter.instantiate()
+	glitter_attack = glitter.instantiate()
 	glitter_attack.position = position
 	glitter_attack.level = glitter_level
 	# spawn the glitter
@@ -153,7 +153,7 @@ func _on_glitter_delay_timer_timeout():
 func _on_glitter_active_timer_timeout():
 	glitterDelayTimer.start()
 	
-##
+
 #func _on_glitter_positioning_timeout():
 #	if not glitterActiveTimer.is_stopped():
 #		glitter.position = position
