@@ -4,23 +4,24 @@ var movement_speed = 40.0
 var hp = 80
 
 # Attacks
-var iceSpear = preload("res://Player/Attack/ice_spear.tscn")
+var knife = preload("res://Player/Attack/knife.tscn")
 var glitter = preload("res://Player/Attack/glitter.tscn")
 
 # AttackNodes
-@onready var iceSpearReloadTimer = get_node("%IceSpearReloadTimer")
-@onready var iceSpearTriggerTimer = get_node("%IceSpearTriggerTimer")
+@onready var knifeReloadTimer = get_node("%KnifeReloadTimer")
+@onready var knifeTriggerTimer = get_node("%KnifeTriggerTimer")
 
 @onready var glitterActiveTimer = get_node("%GlitterActiveTimer")
 @onready var glitterDelayTimer = get_node("%GlitterDelayTimer")
 #@onready var glitterPositioningTimer = get_node("%GlitterPositioningTimer")
 
+signal remove_glitter()
 
-# IceSpear
-var icespear_ammo = 0
-var icespear_base_ammo = 1
-var icespear_attackspeed = 1.5
-var icespear_level = 1
+# Knife
+var knife_ammo = 0
+var knife_base_ammo = 1
+var knife_attackspeed = 1.5
+var knife_level = 1
 
 #Glitter
 var glitter_level = 1
@@ -39,10 +40,10 @@ func _ready():
 	attack()
 
 func attack():
-	if icespear_level > 0:
-		iceSpearReloadTimer.wait_time = icespear_attackspeed
-		if iceSpearReloadTimer.is_stopped():
-			iceSpearReloadTimer.start()
+	if knife_level > 0:
+		knifeReloadTimer.wait_time = knife_attackspeed
+		if knifeReloadTimer.is_stopped():
+			knifeReloadTimer.start()
 	
 	if glitter_level > 0:
 		glitterDelayTimer.wait_time = glitter_attackspeed
@@ -98,27 +99,27 @@ func _on_hurt_box_hurt(damage):
 	print(hp)
 
 # loading your ammunition
-func _on_ice_spear_reload_timer_timeout():
-	icespear_ammo += icespear_base_ammo
-	iceSpearTriggerTimer.start()
+func _on_knife_reload_timer_timeout():
+	knife_ammo += knife_base_ammo
+	knifeTriggerTimer.start()
 
 # shooting a machine gun
-func _on_ice_spear_trigger_timer_timeout():
-		if icespear_ammo > 0:
-			var icespear_attack = iceSpear.instantiate()
-			icespear_attack.position = position
-			icespear_attack.target = get_random_target()
-			icespear_attack.level = icespear_level
-			# spawn ice spear
-			add_child(icespear_attack)
+func _on_knife_trigger_timer_timeout():
+		if knife_ammo > 0:
+			var knife_attack = knife.instantiate()
+			knife_attack.position = position
+			knife_attack.target = get_random_target()
+			knife_attack.level = knife_level
+			# spawn knife
+			add_child(knife_attack)
 			# we now used up a 'bullet'
 			# so we remove one bullet from ammo
-			icespear_ammo -= 1
+			knife_ammo -= 1
 			# check if we have ammo left
-			if icespear_ammo > 0:
-				iceSpearTriggerTimer.start()
+			if knife_ammo > 0:
+				knifeTriggerTimer.start()
 			else:
-				iceSpearTriggerTimer.stop()
+				knifeTriggerTimer.stop()
 		
 func get_random_target():
 	# if there are enemies nearby
@@ -139,8 +140,6 @@ func _on_enemy_detection_area_body_exited(body):
 	if enemy_close.has(body):
 		enemy_close.erase(body)
 		
-
-
 func _on_glitter_delay_timer_timeout():
 	glitter_attack = glitter.instantiate()
 	glitter_attack.position = position
@@ -151,12 +150,10 @@ func _on_glitter_delay_timer_timeout():
 	#glitter_attack.GlitterTTL.start()
 	
 func _on_glitter_active_timer_timeout():
+	#tween.tween_property(self,"scale", Vector2(1,1)*attack_size,1).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	#tween.play()
+	#emit_signal("remove_glitter")
 	glitterDelayTimer.start()
-	
 
-#func _on_glitter_positioning_timeout():
-#	if not glitterActiveTimer.is_stopped():
-#		glitter.position = position
-#		glitterPositioningTimer.start()
 		
 		

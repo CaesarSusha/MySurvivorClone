@@ -36,4 +36,4 @@ func _on_hurt_box_hurt(damage):
 	hp -= damage
 	if hp <= 0:
 		#deletes the enemy from the game
-		queue_free() 
+		queue_free()

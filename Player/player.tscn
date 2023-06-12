@@ -45,11 +45,11 @@ shape = SubResource("RectangleShape2D_448m8")
 
 [node name="Attack" type="Node2D" parent="."]
 
-[node name="IceSpearReloadTimer" type="Timer" parent="Attack"]
+[node name="KnifeReloadTimer" type="Timer" parent="Attack"]
 unique_name_in_owner = true
 wait_time = 1.5
 
-[node name="IceSpearTriggerTimer" type="Timer" parent="Attack/IceSpearReloadTimer"]
+[node name="KnifeTriggerTimer" type="Timer" parent="Attack/KnifeReloadTimer"]
 unique_name_in_owner = true
 wait_time = 0.075
 
@@ -59,7 +59,8 @@ wait_time = 3.0
 
 [node name="GlitterDelayTimer" type="Timer" parent="Attack"]
 unique_name_in_owner = true
-wait_time = 10.0
+wait_time = 5.0
+autostart = true
 
 [node name="EnemyDetectionArea" type="Area2D" parent="."]
 collision_layer = 4
@@ -70,8 +71,8 @@ monitorable = false
 shape = SubResource("CircleShape2D_fstb8")
 
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
-[connection signal="timeout" from="Attack/IceSpearReloadTimer" to="." method="_on_ice_spear_reload_timer_timeout"]
-[connection signal="timeout" from="Attack/IceSpearReloadTimer/IceSpearTriggerTimer" to="." method="_on_ice_spear_trigger_timer_timeout"]
+[connection signal="timeout" from="Attack/KnifeReloadTimer" to="." method="_on_knife_reload_timer_timeout"]
+[connection signal="timeout" from="Attack/KnifeReloadTimer/KnifeTriggerTimer" to="." method="_on_knife_trigger_timer_timeout"]
 [connection signal="timeout" from="Attack/GlitterActiveTimer" to="." method="_on_glitter_active_timer_timeout"]
 [connection signal="timeout" from="Attack/GlitterDelayTimer" to="." method="_on_glitter_delay_timer_timeout"]
 [connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]

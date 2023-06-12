@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsecjycnrya4w"]
+
+[ext_resource type="Script" path="res://Player/Attack/knife.gd" id="1_4vrna"]
+[ext_resource type="Texture2D" uid="uid://cxd5twvmod2br" path="res://Textures/Items/Weapons/knife.png" id="2_o6ady"]
+[ext_resource type="AudioStream" uid="uid://c1qa2qyrqynoq" path="res://Audio/SoundEffect/ice.wav" id="3_rta0r"]
+[ext_resource type="Script" path="res://Player/Attack/snd_play.gd" id="4_krfky"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_alpql"]
+size = Vector2(6.36396, 28.2843)
+
+[node name="Knife" type="Area2D" groups=["attack"]]
+top_level = true
+scale = Vector2(0.1, 0.1)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_4vrna")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6.70552e-07, -7.45058e-07)
+rotation = -0.785398
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_alpql")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_o6ady")
+
+[node name="TTL" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="snd_play" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_rta0r")
+volume_db = -10.0
+pitch_scale = 3.0
+autoplay = true
+script = ExtResource("4_krfky")
+
+[connection signal="timeout" from="TTL" to="." method="_on_ttl_timeout"]
